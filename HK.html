@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>股票查询 | Stock Searching</title>
+
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav id="nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">股票查询 | Stock Searching</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">全部</a></li>
+                    <li><a href="SH.html">上证</a></li>
+                    <li><a href="SZ.html">深证</a></li>
+                    <li class="active"><a href="#">港股</a></li>
+                    <li><a href="US.html">美股</a></li>
+                </ul>
+            </div>
+            <div style="float: right; margin-top: 8px;">
+                <button class="btn btn-default" v-on:click="showAll">全部显示</button>
+            </div>
+            <div class="showAll">
+                <span>{{message}}</span>
+            </div>
+        </div>
+
+    </nav>
+    <div id="app" class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 color3 part">
+                <p class="title">港股</p>
+                <input type="text" class="form-control" placeholder="股票代码, 如:00001" v-model="gidHK" />
+                <p class="content">{{messageHK}}</p>
+                <p class="content">股票名称: {{nameHK}}</p>
+                <p class="content">股票编号: {{gidHK}}</p>
+                <p class="content">日期: {{dateHK}}</p>
+                <p class="content">时间: {{timeHK}}</p>
+                <p class="content">涨跌百分比: {{limitHK}}</p>
+                <p class="content">涨跌额: {{uppicHK}}</p>
+                <p class="content">今日开盘价: {{openpriHK}}</p>
+                <p class="content">昨日收盘价: {{formpriHK}}</p>
+                <p class="content">当前价格: {{lastestpriHK}}</p>
+                <p class="content">今日最高价: {{maxpriHK}}</p>
+                <p class="content">今日最低价: {{minpriHK}}</p>
+                <p class="content">竞买价: {{inpicHK}}</p>
+                <p class="content">竞卖价: {{outpicHK}}</p>
+                <p class="content">成交量: {{traNumberHK}}</p>
+                <p class="content">成交金额: {{traAmountHK}}</p>
+                <p class="content">市盈率: {{priearnHK}}</p>
+            </div>
+            <div class="col-md-3">
+                <div class="color1 part2">
+                    <div class="showHeader">
+                        <div class="showImg" v-on:click="show1"><img src="img/00700.png"></div>
+                        <span class="showName">腾讯控股</span>
+                        <span class="showGid">{{gid1}}</span>
+                    </div>
+                    <div class="showMain">
+                        <span class="showData1">当前价格: {{lastestpri1}}</span>
+                        <span class="showData2">涨跌百分比: {{limit1}}</span>
+                        <span class="showData3">市盈率: {{priearn1}}</span>
+                        <span class="showData4">成交额: {{traAmount1}}</span>
+                    </div>
+                </div>
+                <div class="color2 part2">
+                    <div class="showHeader">
+                        <div class="showImg" v-on:click="show4"><img src="img/01357.png"></div>
+                        <span class="showName">美图公司</span>
+                        <span class="showGid">{{gid4}}</span>
+                    </div>
+                    <div class="showMain">
+                        <span class="showData1">当前价格: {{lastestpri4}}</span>
+                        <span class="showData2">涨跌百分比: {{limit4}}</span>
+                        <span class="showData3">市盈率: {{priearn4}}</span>
+                        <span class="showData4">成交额: {{traAmount4}}</span>
+                    </div>
+                </div>
+                <div class="color4 part2">
+                    <div class="showHeader">
+                        <div class="showImg" v-on:click="show7"><img src="img/00001.png"></div>
+                        <span class="showName">长和</span>
+                        <span class="showGid">{{gid7}}</span>
+                    </div>
+                    <div class="showMain">
+                        <span class="showData1">当前价格: {{lastestpri7}}</span>
+                        <span class="showData2">涨跌百分比: {{limit7}}</span>
+                        <span class="showData3">市盈率: {{priearn7}}</span>
+                        <span class="showData4">成交额: {{traAmount7}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="color2 part2">
+                    <div class="showHeader">
+                        <div class="showImg" v-on:click="show2"><img src="img/01810.png"></div>
+                        <span class="showName">小米集团</span>
+                        <span class="showGid">{{gid2}}</span>
+                    </div>
+                    <div class="showMain">
+                        <span class="showData1">当前价格: {{lastestpri2}}</span>
+                        <span class="showData2">涨跌百分比: {{limit2}}</span>
+                        <span class="showData3">市盈率: {{priearn2}}</span>
+                        <span class="showData4">成交额: {{traAmount2}}</span>
+                    </div>
+                </div>
+                <div class="color4 part2">
+                    <div class="showHeader">
+                        <div class="showImg" v-on:click="show5"><img src="img/01833.png"></div>
+                        <span class="showName">神州租车</span>
+                        <span class="showGid">{{gid5}}</span>
+                    </div>
+                    <div class="showMain">
+                        <span class="showData1">当前价格: {{lastestpri5}}</span>
+                        <span class="showData2">涨跌百分比: {{limit5}}</span>
+                        <span class="showData3">市盈率: {{priearn5}}</span>
+                        <span class="showData4">成交额: {{traAmount5}}</span>
+                    </div>
+                </div>
+                <div class="color1 part2">
+                    <div class="showHeader">
+                        <div class="showImg" v-on:click="show8"><img src="img/00012.png"></div>
+                        <span class="showName">恒基地产</span>
+                        <span class="showGid">{{gid8}}</span>
+                    </div>
+                    <div class="showMain">
+                        <span class="showData1">当前价格: {{lastestpri8}}</span>
+                        <span class="showData2">涨跌百分比: {{limit8}}</span>
+                        <span class="showData3">市盈率: {{priearn8}}</span>
+                        <span class="showData4">成交额: {{traAmount8}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="color4 part2">
+                    <div class="showHeader">
+                        <div class="showImg" v-on:click="show3"><img src="img/03690.png"></div>
+                        <span class="showName">美团点评</span>
+                        <span class="showGid">{{gid3}}</span>
+                    </div>
+                    <div class="showMain">
+                        <span class="showData1">当前价格: {{lastestpri3}}</span>
+                        <span class="showData2">涨跌百分比: {{limit3}}</span>
+                        <span class="showData3">市盈率: {{priearn3}}</span>
+                        <span class="showData4">成交额: {{traAmount3}}</span>
+                    </div>
+                </div>
+                <div class="color1 part2">
+                    <div class="showHeader">
+                        <div class="showImg" v-on:click="show6"><img src="img/00772.png"></div>
+                        <span class="showName">阅文集团</span>
+                        <span class="showGid">{{gid6}}</span>
+                    </div>
+                    <div class="showMain">
+                        <span class="showData1">当前价格: {{lastestpri6}}</span>
+                        <span class="showData2">涨跌百分比: {{limit6}}</span>
+                        <span class="showData3">市盈率: {{priearn6}}</span>
+                        <span class="showData4">成交额: {{traAmount6}}</span>
+                    </div>
+                </div>
+                <div class="color2 part2">
+                    <div class="showHeader">
+                        <div class="showImg" v-on:click="show9"><img src="img/03333.png"></div>
+                        <span class="showName">中国恒大</span>
+                        <span class="showGid">{{gid9}}</span>
+                    </div>
+                    <div class="showMain">
+                        <span class="showData1">当前价格: {{lastestpri9}}</span>
+                        <span class="showData2">涨跌百分比: {{limit9}}</span>
+                        <span class="showData3">市盈率: {{priearn9}}</span>
+                        <span class="showData4">成交额: {{traAmount9}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
+<script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
+<script src="https://unpkg.com/lodash@4.13.1/lodash.min.js"></script>
+
+<script>
+    const API_PROXY = 'https://bird.ioliu.cn/v1/?url='
+
+    var nav = new Vue({
+        el: '#nav',
+        data: {
+            message: ''
+        },
+        methods: {
+            showAll: _.debounce(function () {
+                app.show1();
+                app.show2();
+                app.show3();
+                app.show4();
+                app.show5();
+                app.show6();
+                app.show7();
+                app.show8();
+                app.show9();
+            }, 500)
+        }
+    })
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            messageHK: '',
+
+            nameHK: '',
+            gidHK: '',
+            dateHK: '',
+            timeHK: '',
+            limitHK: '',
+            uppicHK: '',
+            openpriHK: '',
+            formpriHK: '',
+            lastestpriHK: '',
+            maxpriHK: '',
+            minpriHK: '',
+            inpicHK: '',
+            outpicHK: '',
+            traNumberHK: '',
+            traAmountHK: '',
+            priearnHK: '',
+
+            gid1: '00700',
+            gid2: '01810',
+            gid3: '03690',
+            gid4: '01357',
+            gid5: '01833',
+            gid6: '00772',
+            gid7: '00001',
+            gid8: '00012',
+            gid9: '03333',
+
+            limit1: '',
+            lastestpri1: '',
+            traAmount1: '',
+            priearn1: '',
+
+            limit2: '',
+            lastestpri2: '',
+            traAmount2: '',
+            priearn2: '',
+
+            limit3: '',
+            lastestpri3: '',
+            traAmount3: '',
+            priearn3: '',
+
+            limit4: '',
+            lastestpri4: '',
+            traAmount4: '',
+            priearn4: '',
+
+            limit5: '',
+            lastestpri5: '',
+            traAmount5: '',
+            priearn5: '',
+
+            limit6: '',
+            lastestpri6: '',
+            traAmount6: '',
+            priearn6: '',
+
+            limit7: '',
+            lastestpri7: '',
+            traAmount7: '',
+            priearn7: '',
+
+            limit8: '',
+            lastestpri8: '',
+            traAmount8: '',
+            priearn8: '',
+
+            limit9: '',
+            lastestpri9: '',
+            traAmount9: '',
+            priearn9: ''
+        },
+        watch: {
+            gidHK: function () {
+                if (this.gidHK.length == 5) {
+                    this.showHK()
+                }
+            }
+        },
+        methods: {
+            showHK: _.debounce(function () {
+                var app = this
+                app.messageHK = 'Searching...'
+                axios.get(API_PROXY + 'http://web.juhe.cn:8080/finance/stock/hk?num=' + app.gidHK +
+                        '&key=c95b13606a73270d34a65a3766e14d41')
+                    .then(function (response) {
+                        app.nameHK = response.data.result[0].data.name
+                        app.gidHK = response.data.result[0].data.gid
+                        app.dateHK = response.data.result[0].data.date
+                        app.timeHK = response.data.result[0].data.time
+                        app.limitHK = response.data.result[0].data.limit
+                        app.uppicHK = response.data.result[0].data.uppic
+                        app.openpriHK = Math.floor(response.data.result[0].data.openpri * 100) / 100
+                        app.formpriHK = Math.floor(response.data.result[0].data.formpri * 100) / 100
+                        app.lastestpriHK = Math.floor(response.data.result[0].data.lastestpri * 100) / 100
+                        app.maxpriHK = Math.floor(response.data.result[0].data.maxpri * 100) / 100
+                        app.minpriHK = Math.floor(response.data.result[0].data.minpri * 100) / 100
+                        app.inpicHK = response.data.result[0].data.inpic
+                        app.outpicHK = response.data.result[0].data.outpic
+                        app.traNumberHK = response.data.result[0].data.traNumber
+                        app.traAmountHK = response.data.result[0].data.traAmount
+                        app.priearnHK = response.data.result[0].data.priearn
+                        app.messageHK = ''
+                    })
+                    .catch(function (error) {
+                        app.nameHK = "Invalid!"
+                        app.gidHK = "Invalid!"
+                        app.dateHK = "Invalid!"
+                        app.timeHK = "Invalid!"
+                        app.limitHK = "Invalid!"
+                        app.uppicHK = "Invalid!"
+                        app.openpriHK = "Invalid!"
+                        app.formpriHK = "Invalid!"
+                        app.lastestpriHK = "Invalid!"
+                        app.maxpriHK = "Invalid!"
+                        app.minpriHK = "Invalid!"
+                        app.inpicHK = "Invalid!"
+                        app.outpicHK = "Invalid!"
+                        app.traNumberHK = "Invalid!"
+                        app.traAmountHK = "Invalid!"
+                        app.priearnHK = "Invalid!"
+                    })
+            }, 500),
+            show1: _.debounce(function () {
+                var app = this
+                nav.message = 'Searching...'
+                axios.get(API_PROXY + 'http://web.juhe.cn:8080/finance/stock/hk?num=' + app.gid1 +
+                        '&key=c95b13606a73270d34a65a3766e14d41')
+                    .then(function (response) {
+                        if (response.data.result[0].data.limit >= 0) {
+                            app.limit1 = response.data.result[0].data.limit + ' ⇱'
+                        } else {
+                            app.limit1 = response.data.result[0].data.limit + ' ⇲'
+                        }
+                        app.lastestpri1 = Math.floor(response.data.result[0].data.lastestpri * 100) / 100
+                        app.traAmount1 = ((response.data.result[0].data.traAmount) / 1e8).toFixed(2) + '亿(HKD)'
+                        app.priearn1 = response.data.result[0].data.priearn
+                        nav.message = ''
+                    })
+                    .catch(function (error) {
+                        app.limit1 = "Invalid!"
+                        app.lastestpri1 = "Invalid!"
+                        app.traAmount1 = "Invalid!"
+                        app.priearn1 = "Invalid!"
+                    })
+            }, 100),
+            show2: _.debounce(function () {
+                var app = this
+                nav.message = 'Searching...'
+                axios.get(API_PROXY + 'http://web.juhe.cn:8080/finance/stock/hk?num=' + app.gid2 +
+                        '&key=c95b13606a73270d34a65a3766e14d41')
+                    .then(function (response) {
+                        if (response.data.result[0].data.limit >= 0) {
+                            app.limit2 = response.data.result[0].data.limit + ' ⇱'
+                        } else {
+                            app.limit2 = response.data.result[0].data.limit + ' ⇲'
+                        }
+                        app.lastestpri2 = Math.floor(response.data.result[0].data.lastestpri * 100) / 100
+                        app.traAmount2 = ((response.data.result[0].data.traAmount) / 1e8).toFixed(2) + '亿(HKD)'
+                        app.priearn2 = response.data.result[0].data.priearn
+                        nav.message = ''
+                    })
+                    .catch(function (error) {
+                        app.limit2 = "Invalid!"
+                        app.lastestpri2 = "Invalid!"
+                        app.traAmount2 = "Invalid!"
+                        app.priearn2 = "Invalid!"
+                    })
+            }, 200),
+            show3: _.debounce(function () {
+                var app = this
+                nav.message = 'Searching...'
+                axios.get(API_PROXY + 'http://web.juhe.cn:8080/finance/stock/hk?num=' + app.gid3 +
+                        '&key=c95b13606a73270d34a65a3766e14d41')
+                    .then(function (response) {
+                        if (response.data.result[0].data.limit >= 0) {
+                            app.limit3 = response.data.result[0].data.limit + ' ⇱'
+                        } else {
+                            app.limit3 = response.data.result[0].data.limit + ' ⇲'
+                        }
+                        app.lastestpri3 = Math.floor(response.data.result[0].data.lastestpri * 100) /
+                            100
+                        app.traAmount3 = ((response.data.result[0].data.traAmount) / 1e8).toFixed(
+                            2) + '亿(HKD)'
+                        app.priearn3 = response.data.result[0].data.priearn
+                        nav.message = ''
+                    })
+                    .catch(function (error) {
+                        app.limit3 = "Invalid!"
+                        app.lastestpri3 = "Invalid!"
+                        app.traAmount3 = "Invalid!"
+                        app.priearn3 = "Invalid!"
+                    })
+            }, 300),
+            show4: _.debounce(function () {
+                var app = this
+                nav.message = 'Searching...'
+                axios.get(API_PROXY + 'http://web.juhe.cn:8080/finance/stock/hk?num=' + app.gid4 +
+                        '&key=c95b13606a73270d34a65a3766e14d41')
+                    .then(function (response) {
+                        if (response.data.result[0].data.limit >= 0) {
+                            app.limit4 = response.data.result[0].data.limit + ' ⇱'
+                        } else {
+                            app.limit4 = response.data.result[0].data.limit + ' ⇲'
+                        }
+                        app.lastestpri4 = Math.floor(response.data.result[0].data.lastestpri * 100) /
+                            100
+                        app.traAmount4 = ((response.data.result[0].data.traAmount) / 1e8).toFixed(
+                            2) + '亿(HKD)'
+                        app.priearn4 = response.data.result[0].data.priearn
+                        nav.message = ''
+                    })
+                    .catch(function (error) {
+                        app.limit4 = "Invalid!"
+                        app.lastestpri4 = "Invalid!"
+                        app.traAmount4 = "Invalid!"
+                        app.priearn4 = "Invalid!"
+                    })
+            }, 400),
+            show5: _.debounce(function () {
+                var app = this
+                nav.message = 'Searching...'
+                axios.get(API_PROXY + 'http://web.juhe.cn:8080/finance/stock/hk?num=' + app.gid5 +
+                        '&key=c95b13606a73270d34a65a3766e14d41')
+                    .then(function (response) {
+                        if (response.data.result[0].data.limit >= 0) {
+                            app.limit5 = response.data.result[0].data.limit + ' ⇱'
+                        } else {
+                            app.limit5 = response.data.result[0].data.limit + ' ⇲'
+                        }
+                        app.lastestpri5 = Math.floor(response.data.result[0].data.lastestpri * 100) /
+                            100
+                        app.traAmount5 = ((response.data.result[0].data.traAmount) / 1e8).toFixed(
+                            2) + '亿(HKD)'
+                        app.priearn5 = response.data.result[0].data.priearn
+                        nav.message = ''
+                    })
+                    .catch(function (error) {
+                        app.limit5 = "Invalid!"
+                        app.lastestpri5 = "Invalid!"
+                        app.traAmount5 = "Invalid!"
+                        app.priearn5 = "Invalid!"
+                    })
+            }, 500),
+            show6: _.debounce(function () {
+                var app = this
+                nav.message = 'Searching...'
+                axios.get(API_PROXY + 'http://web.juhe.cn:8080/finance/stock/hk?num=' + app.gid6 +
+                        '&key=c95b13606a73270d34a65a3766e14d41')
+                    .then(function (response) {
+                        if (response.data.result[0].data.limit >= 0) {
+                            app.limit6 = response.data.result[0].data.limit + ' ⇱'
+                        } else {
+                            app.limit6 = response.data.result[0].data.limit + ' ⇲'
+                        }
+                        app.lastestpri6 = Math.floor(response.data.result[0].data.lastestpri * 100) /
+                            100
+                        app.traAmount6 = ((response.data.result[0].data.traAmount) / 1e8).toFixed(
+                            2) + '亿(HKD)'
+                        app.priearn6 = response.data.result[0].data.priearn
+                        nav.message = ''
+                    })
+                    .catch(function (error) {
+                        app.limit6 = "Invalid!"
+                        app.lastestpri6 = "Invalid!"
+                        app.traAmount6 = "Invalid!"
+                        app.priearn6 = "Invalid!"
+                    })
+            }, 600),
+            show7: _.debounce(function () {
+                var app = this
+                nav.message = 'Searching...'
+                axios.get(API_PROXY + 'http://web.juhe.cn:8080/finance/stock/hk?num=' + app.gid7 +
+                        '&key=c95b13606a73270d34a65a3766e14d41')
+                    .then(function (response) {
+                        if (response.data.result[0].data.limit >= 0) {
+                            app.limit7 = response.data.result[0].data.limit + ' ⇱'
+                        } else {
+                            app.limit7 = response.data.result[0].data.limit + ' ⇲'
+                        }
+                        app.lastestpri7 = Math.floor(response.data.result[0].data.lastestpri * 100) /
+                            100
+                        app.traAmount7 = ((response.data.result[0].data.traAmount) / 1e8).toFixed(
+                            2) + '亿(HKD)'
+                        app.priearn7 = response.data.result[0].data.priearn
+                        nav.message = ''
+                    })
+                    .catch(function (error) {
+                        app.limit7 = "Invalid!"
+                        app.lastestpri7 = "Invalid!"
+                        app.traAmount7 = "Invalid!"
+                        app.priearn7 = "Invalid!"
+                    })
+            }, 700),
+            show8: _.debounce(function () {
+                var app = this
+                nav.message = 'Searching...'
+                axios.get(API_PROXY + 'http://web.juhe.cn:8080/finance/stock/hk?num=' + app.gid8 +
+                        '&key=c95b13606a73270d34a65a3766e14d41')
+                    .then(function (response) {
+                        if (response.data.result[0].data.limit >= 0) {
+                            app.limit8 = response.data.result[0].data.limit + ' ⇱'
+                        } else {
+                            app.limit8 = response.data.result[0].data.limit + ' ⇲'
+                        }
+                        app.lastestpri8 = Math.floor(response.data.result[0].data.lastestpri * 100) /
+                            100
+                        app.traAmount8 = ((response.data.result[0].data.traAmount) / 1e8).toFixed(
+                            2) + '亿(HKD)'
+                        app.priearn8 = response.data.result[0].data.priearn
+                        nav.message = ''
+                    })
+                    .catch(function (error) {
+                        app.limit8 = "Invalid!"
+                        app.lastestpri8 = "Invalid!"
+                        app.traAmount8 = "Invalid!"
+                        app.priearn8 = "Invalid!"
+                    })
+            }, 800),
+            show9: _.debounce(function () {
+                var app = this
+                nav.message = 'Searching...'
+                axios.get(API_PROXY + 'http://web.juhe.cn:8080/finance/stock/hk?num=' + app.gid9 +
+                        '&key=c95b13606a73270d34a65a3766e14d41')
+                    .then(function (response) {
+                        if (response.data.result[0].data.limit >= 0) {
+                            app.limit9 = response.data.result[0].data.limit + ' ⇱'
+                        } else {
+                            app.limit9 = response.data.result[0].data.limit + ' ⇲'
+                        }
+                        app.lastestpri9 = Math.floor(response.data.result[0].data.lastestpri * 100) /
+                            100
+                        app.traAmount9 = ((response.data.result[0].data.traAmount) / 1e8).toFixed(
+                            2) + '亿(HKD)'
+                        app.priearn9 = response.data.result[0].data.priearn
+                        nav.message = ''
+                    })
+                    .catch(function (error) {
+                        app.limit9 = "Invalid!"
+                        app.lastestpri9 = "Invalid!"
+                        app.traAmount9 = "Invalid!"
+                        app.priearn9 = "Invalid!"
+                    })
+            }, 900)
+        }
+    })
+</script>

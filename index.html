@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>股票查询 | Stock Searching</title>
+
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">股票查询 | Stock Searching</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">全部</a></li>
+                    <li><a href="SH.html">上证</a></li>
+                    <li><a href="SZ.html">深证</a></li>
+                    <li><a href="HK.html">港股</a></li>
+                    <li><a href="US.html">美股</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="app" class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 color1 part">
+                <p class="title">上证</p>
+                <input type="text" class="form-control" placeholder="股票代码, 如:600000" v-model="gidSH" />
+                <p class="content">{{messageSH}}</p>
+                <p class="content">股票名称: {{nameSH}}</p>
+                <p class="content">股票编号: {{gidSH}}</p>
+                <p class="content">日期: {{dateSH}}</p>
+                <p class="content">时间: {{timeSH}}</p>
+                <p class="content">涨跌百分比: {{increPerSH}}</p>
+                <p class="content">涨跌额: {{increaseSH}}</p>
+                <p class="content">今日开盘价: {{todayStartPriSH}}</p>
+                <p class="content">昨日收盘价: {{yestodEndPriSH}}</p>
+                <p class="content">当前价格: {{nowPriSH}}</p>
+                <p class="content">今日最高价: {{todayMaxSH}}</p>
+                <p class="content">今日最低价: {{todayMinSH}}</p>
+                <p class="content">竞买价: {{competitivePriSH}}</p>
+                <p class="content">竞卖价: {{reservePriSH}}</p>
+                <p class="content">成交量: {{traNumberSH}}</p>
+                <p class="content">成交金额: {{traAmountSH}}</p>
+            </div>
+            <div class="col-md-3 color2 part">
+                <p class="title">深证</p>
+                <input type="text" class="form-control" placeholder="股票代码, 如:000001" v-model="gidSZ" />
+                <p class="content">{{messageSZ}}</p>
+                <p class="content">股票名称: {{nameSZ}}</p>
+                <p class="content">股票编号: {{gidSZ}}</p>
+                <p class="content">日期: {{dateSZ}}</p>
+                <p class="content">时间: {{timeSZ}}</p>
+                <p class="content">涨跌百分比: {{increPerSZ}}</p>
+                <p class="content">涨跌额: {{increaseSZ}}</p>
+                <p class="content">今日开盘价: {{todayStartPriSZ}}</p>
+                <p class="content">昨日收盘价: {{yestodEndPriSZ}}</p>
+                <p class="content">当前价格: {{nowPriSZ}}</p>
+                <p class="content">今日最高价: {{todayMaxSZ}}</p>
+                <p class="content">今日最低价: {{todayMinSZ}}</p>
+                <p class="content">竞买价: {{competitivePriSZ}}</p>
+                <p class="content">竞卖价: {{reservePriSZ}}</p>
+                <p class="content">成交量: {{traNumberSZ}}</p>
+                <p class="content">成交金额: {{traAmountSZ}}</p>
+            </div>
+            <div class="col-md-3 color3 part">
+                <p class="title">港股</p>
+                <input type="text" class="form-control" placeholder="股票代码, 如:00001" v-model="gidHK" />
+                <p class="content">{{messageHK}}</p>
+                <p class="content">股票名称: {{nameHK}}</p>
+                <p class="content">股票编号: {{gidHK}}</p>
+                <p class="content">日期: {{dateHK}}</p>
+                <p class="content">时间: {{timeHK}}</p>
+                <p class="content">涨跌百分比: {{limitHK}}</p>
+                <p class="content">涨跌额: {{uppicHK}}</p>
+                <p class="content">今日开盘价: {{openpriHK}}</p>
+                <p class="content">昨日收盘价: {{formpriHK}}</p>
+                <p class="content">当前价格: {{lastestpriHK}}</p>
+                <p class="content">今日最高价: {{maxpriHK}}</p>
+                <p class="content">今日最低价: {{minpriHK}}</p>
+                <p class="content">竞买价: {{inpicHK}}</p>
+                <p class="content">竞卖价: {{outpicHK}}</p>
+                <p class="content">成交量: {{traNumberHK}}</p>
+                <p class="content">成交金额: {{traAmountHK}}</p>
+                <p class="content">市盈率: {{priearnHK}}</p>
+            </div>
+            <div class="col-md-3 color4 part">
+                <p class="title">美股</p>
+                <input type="text" class="form-control" placeholder="股票代码, 如:aapl" v-model="gidUS" />
+                <p class="content">{{messageUS}}</p>
+                <p class="content">股票名称: {{nameUS}}</p>
+                <p class="content">股票编号: {{gidUS}}</p>
+                <p class="content">美国时间: {{ustimeUS}}</p>
+                <p class="content">中国时间: {{chtimeUS}}</p>
+                <p class="content">涨跌百分比: {{limitUS}}</p>
+                <p class="content">涨跌额: {{uppicUS}}</p>
+                <p class="content">今日开盘价: {{openpriUS}}</p>
+                <p class="content">昨日收盘价: {{formpriUS}}</p>
+                <p class="content">当前价格: {{lastestpriUS}}</p>
+                <p class="content">今日最高价: {{maxpriUS}}</p>
+                <p class="content">今日最低价: {{minpriUS}}</p>
+                <p class="content">成交量: {{traAmountUS}}</p>
+                <p class="content">平均成交量: {{avgTraNumberUS}}</p>
+                <p class="content">市值: {{markValueUS}}</p>
+                <p class="content">市盈率: {{priearnUS}}</p>
+                <p class="content">收益率: {{RORUS}}</p>
+                <p class="content">美股收益: {{EPSUS}}</p>
+                <p class="content">股息: {{dividentUS}}</p>
+                <p class="content">股本: {{capitalUS}}</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
+<script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
+<script src="https://unpkg.com/lodash@4.13.1/lodash.min.js"></script>
+
+<script>
+    const API_PROXY = 'https://bird.ioliu.cn/v1/?url='
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            messageSH: '',
+            messageSZ: '',
+            messageHK: '',
+            messageUS: '',
+
+            //SH
+            gidSH: '',
+            nameSH: '',
+            dateSH: '',
+            timeSH: '',
+            increPerSH: '',
+            increaseSH: '',
+            todayStartPriSH: '',
+            yestodEndPriSH: '',
+            nowPriSH: '',
+            todayMaxSH: '',
+            todayMinSH: '',
+            competitivePriSH: '',
+            reservePriSH: '',
+            traNumberSH: '',
+            traAmountSH: '',
+
+            //SZ
+            gidSZ: '',
+            nameSZ: '',
+            dateSZ: '',
+            timeSZ: '',
+            increPerSZ: '',
+            increaseSZ: '',
+            todayStartPriSZ: '',
+            yestodEndPriSZ: '',
+            nowPriSZ: '',
+            todayMaxSZ: '',
+            todayMinSZ: '',
+            competitivePriSZ: '',
+            reservePriSZ: '',
+            traNumberSZ: '',
+            traAmountSZ: '',
+
+            //HK
+            nameHK: '',
+            gidHK: '',
+            dateHK: '',
+            timeHK: '',
+            limitHK: '',
+            uppicHK: '',
+            openpriHK: '',
+            formpriHK: '',
+            lastestpriHK: '',
+            maxpriHK: '',
+            minpriHK: '',
+            inpicHK: '',
+            outpicHK: '',
+            traNumberHK: '',
+            traAmountHK: '',
+            priearnHK: '',
+
+            //US
+            nameUS: '',
+            gidUS: '',
+            ustimeUS: '',
+            chtimeUS: '',
+            limitUS: '',
+            uppicUS: '',
+            openpriUS: '',
+            formpriUS: '',
+            lastestpriUS: '',
+            maxpriUS: '',
+            minpriUS: '',
+            traAmountUS: '',
+            avgTraNumberUS: '',
+            markValueUS: '',
+            priearnUS: '',
+            RORUS: '',
+            EPSUS: '',
+            dividentUS: '',
+            capitalUS: ''
+        },
+        watch: {
+            gidSH: function () {
+                if (this.gidSH.length == 6) {
+                    this.showSH()
+                }
+            },
+            gidSZ: function () {
+                if (this.gidSZ.length == 6) {
+                    this.showSZ()
+                }
+            },
+            gidHK: function () {
+                if (this.gidHK.length == 5) {
+                    this.showHK()
+                }
+            },
+            gidUS: function () {
+                this.showUS()
+            }
+        },
+        methods: {
+            showSH: _.debounce(function () {
+                var app = this
+                app.messageSH = 'Searching...'
+                axios.get(API_PROXY + 'http://web.juhe.cn:8080/finance/stock/hs?gid=sh' + app.gidSH +
+                        '&key=c95b13606a73270d34a65a3766e14d41')
+                    .then(function (response) {
+                        app.nameSH = response.data.result[0].data.name
+                        app.dateSH = response.data.result[0].data.date
+                        app.timeSH = response.data.result[0].data.time
+                        app.increPerSH = response.data.result[0].data.increPer
+                        app.increaseSH = response.data.result[0].data.increase
+                        app.todayStartPriSH = response.data.result[0].data.todayStartPri
+                        app.yestodEndPriSH = response.data.result[0].data.yestodEndPri
+                        app.nowPriSH = response.data.result[0].data.nowPri
+                        app.todayMaxSH = response.data.result[0].data.todayMax
+                        app.todayMinSH = response.data.result[0].data.todayMin
+                        app.competitivePriSH = response.data.result[0].data.competitivePri
+                        app.reservePriSH = response.data.result[0].data.reservePri
+                        app.traNumberSH = response.data.result[0].data.traNumber
+                        app.traAmountSH = response.data.result[0].data.traAmount
+                        app.messageSH = ''
+                    })
+                    .catch(function (error) {
+                        app.nameSH = "Invalid!"
+                        app.dateSH = "Invalid!"
+                        app.timeSH = "Invalid!"
+                        app.increPerSH = "Invalid!"
+                        app.increaseSH = "Invalid!"
+                        app.todayStartPriSH = "Invalid!"
+                        app.yestodEndPriSH = "Invalid!"
+                        app.nowPriSH = "Invalid!"
+                        app.todayMaxSH = "Invalid!"
+                        app.todayMinSH = "Invalid!"
+                        app.competitivePriSH = "Invalid!"
+                        app.reservePriSH = "Invalid!"
+                        app.traNumberSH = "Invalid!"
+                        app.traAmountSH = "Invalid!"
+                    })
+            }, 500),
+            showSZ: _.debounce(function () {
+                var app = this
+                app.messageSZ = 'Searching...'
+                axios.get(API_PROXY + 'http://web.juhe.cn:8080/finance/stock/hs?gid=sz' + app.gidSZ +
+                        '&key=c95b13606a73270d34a65a3766e14d41')
+                    .then(function (response) {
+                        app.nameSZ = response.data.result[0].data.name
+                        app.dateSZ = response.data.result[0].data.date
+                        app.timeSZ = response.data.result[0].data.time
+                        app.increPerSZ = response.data.result[0].data.increPer
+                        app.increaseSZ = response.data.result[0].data.increase
+                        app.todayStartPriSZ = response.data.result[0].data.todayStartPri
+                        app.yestodEndPriSZ = response.data.result[0].data.yestodEndPri
+                        app.nowPriSZ = response.data.result[0].data.nowPri
+                        app.todayMaxSZ = response.data.result[0].data.todayMax
+                        app.todayMinSZ = response.data.result[0].data.todayMin
+                        app.competitivePriSZ = response.data.result[0].data.competitivePri
+                        app.reservePriSZ = response.data.result[0].data.reservePri
+                        app.traNumberSZ = response.data.result[0].data.traNumber
+                        app.traAmountSZ = response.data.result[0].data.traAmount
+                        app.messageSZ = ''
+                    })
+                    .catch(function (error) {
+                        app.nameSZ = "Invalid!"
+                        app.dateSZ = "Invalid!"
+                        app.timeSZ = "Invalid!"
+                        app.increPerSZ = "Invalid!"
+                        app.increaseSZ = "Invalid!"
+                        app.todayStartPriSZ = "Invalid!"
+                        app.yestodEndPriSZ = "Invalid!"
+                        app.nowPriSZ = "Invalid!"
+                        app.todayMaxSZ = "Invalid!"
+                        app.todayMinSZ = "Invalid!"
+                        app.competitivePriSZ = "Invalid!"
+                        app.reservePriSZ = "Invalid!"
+                        app.traNumberSZ = "Invalid!"
+                        app.traAmountSZ = "Invalid!"
+                    })
+            }, 500),
+            showHK: _.debounce(function () {
+                var app = this
+                app.messageHK = 'Searching...'
+                axios.get(API_PROXY + 'http://web.juhe.cn:8080/finance/stock/hk?num=' + app.gidHK +
+                        '&key=c95b13606a73270d34a65a3766e14d41')
+                    .then(function (response) {
+                        app.nameHK = response.data.result[0].data.name
+                        app.gidHK = response.data.result[0].data.gid
+                        app.dateHK = response.data.result[0].data.date
+                        app.timeHK = response.data.result[0].data.time
+                        app.limitHK = response.data.result[0].data.limit
+                        app.uppicHK = response.data.result[0].data.uppic
+                        app.openpriHK = response.data.result[0].data.openpri
+                        app.formpriHK = response.data.result[0].data.formpri
+                        app.lastestpriHK = response.data.result[0].data.lastestpri
+                        app.maxpriHK = response.data.result[0].data.maxpri
+                        app.minpriHK = response.data.result[0].data.minpri
+                        app.inpicHK = response.data.result[0].data.inpic
+                        app.outpicHK = response.data.result[0].data.outpic
+                        app.traNumberHK = response.data.result[0].data.traNumber
+                        app.traAmountHK = response.data.result[0].data.traAmount
+                        app.priearnHK = response.data.result[0].data.priearn
+                        app.messageHK = ''
+                    })
+                    .catch(function (error) {
+                        app.nameHK = "Invalid!"
+                        app.gidHK = "Invalid!"
+                        app.dateHK = "Invalid!"
+                        app.timeHK = "Invalid!"
+                        app.limitHK = "Invalid!"
+                        app.uppicHK = "Invalid!"
+                        app.openpriHK = "Invalid!"
+                        app.formpriHK = "Invalid!"
+                        app.lastestpriHK = "Invalid!"
+                        app.maxpriHK = "Invalid!"
+                        app.minpriHK = "Invalid!"
+                        app.inpicHK = "Invalid!"
+                        app.outpicHK = "Invalid!"
+                        app.traNumberHK = "Invalid!"
+                        app.traAmountHK = "Invalid!"
+                        app.priearnHK = "Invalid!"
+                    })
+            }, 500),
+            showUS: _.debounce(function () {
+                var app = this
+                app.messageUS = 'Searching...'
+                axios.get(API_PROXY + 'http://web.juhe.cn:8080/finance/stock/usa?gid=' + app.gidUS +
+                        '&key=c95b13606a73270d34a65a3766e14d41')
+                    .then(function (response) {
+                        app.nameUS = response.data.result[0].data.name
+                        app.gidUS = response.data.result[0].data.gid
+                        app.ustimeUS = response.data.result[0].data.ustime
+                        app.chtimeUS = response.data.result[0].data.chtime
+                        app.limitUS = response.data.result[0].data.limit
+                        app.uppicUS = response.data.result[0].data.uppic
+                        app.openpriUS = response.data.result[0].data.openpri
+                        app.formpriUS = response.data.result[0].data.formpri
+                        app.lastestpriUS = response.data.result[0].data.lastestpri
+                        app.maxpriUS = response.data.result[0].data.maxpri
+                        app.minpriUS = response.data.result[0].data.minpri
+                        app.traAmountUS = response.data.result[0].data.traAmount
+                        app.avgTraNumberUS = response.data.result[0].data.avgTraNumber
+                        app.markValueUS = ((response.data.result[0].data.markValue) / 1e8).toFixed(
+                            2) + '亿'
+                        app.priearnUS = response.data.result[0].data.priearn
+                        app.RORUS = response.data.result[0].data.ROR
+                        app.EPSUS = response.data.result[0].data.EPS
+                        app.dividentUS = response.data.result[0].data.divident
+                        app.capitalUS = response.data.result[0].data.capital
+                        app.messageUS = ''
+                        console.log(response.data.result[0].data)
+                    })
+                    .catch(function (error) {
+                        app.nameUS = "Incalid"
+                        app.gidUS = "Invalid!"
+                        app.ustimeUS = "Invalid!"
+                        app.chtimeUS = "Invalid!"
+                        app.limitUS = "Invalid!"
+                        app.uppicUS = "Invalid!"
+                        app.openpriUS = "Invalid!"
+                        app.formpriUS = "Invalid!"
+                        app.lastestpriUS = "Invalid!"
+                        app.maxpriUS = "Invalid!"
+                        app.minpriUS = "Invalid!"
+                        app.traAmountUS = "Invalid!"
+                        app.avgTraNumberUS = "Invalid!"
+                        app.markValueUS = "Invalid!"
+                        app.priearnUS = "Invalid!"
+                        app.RORUS = "Invalid!"
+                        app.EPSUS = "Invalid!"
+                        app.dividentUS = "Invalid!"
+                        app.capitalU = "Invalid!"
+                    })
+            }, 500),
+        }
+    })
+</script>
+
+</html>
