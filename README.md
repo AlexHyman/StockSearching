@@ -1,2 +1,2 @@
-# Stock-Searching
+# StockSearching
 股票查询
